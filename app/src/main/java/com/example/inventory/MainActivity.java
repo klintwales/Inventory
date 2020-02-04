@@ -27,9 +27,45 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnLocations.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openLocations();
+            }
+        });
+
+        btnAddItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openAddItem();
+            }
+        });
+
+        btnAddLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openAddLocation();
+            }
+        });
+
     }
 
     public void openItems(){
+        Intent intent = new Intent(this, Items.class);
+        startActivity(intent);
+    }
+
+    public void openLocations(){
+        Intent intent = new Intent(this, Items.class);
+        startActivity(intent);
+    }
+
+    public void openAddItem(){
+        Intent intent = new Intent(this, Items.class);
+        startActivity(intent);
+    }
+
+    public void openAddLocation(){
         Intent intent = new Intent(this, Items.class);
         startActivity(intent);
     }
