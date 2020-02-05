@@ -56,17 +56,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openLocations(){
-        Intent intent = new Intent(this, Items.class);
+        Intent intent = new Intent(this, Locations.class);
         startActivity(intent);
     }
 
     public void openAddItem(){
-        Intent intent = new Intent(this, Items.class);
+        Intent intent = new Intent(this, AddItem.class);
         startActivity(intent);
     }
 
     public void openAddLocation(){
-        Intent intent = new Intent(this, Items.class);
+        Intent intent = new Intent(this, AddLocation.class);
         startActivity(intent);
     }
 
