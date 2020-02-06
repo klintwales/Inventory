@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.parse.Parse;
+import android.app.Application;
+
+
 public class MainActivity extends AppCompatActivity {
 
     Button btnItems, btnLocations, btnAddItem, btnAddLocation;
