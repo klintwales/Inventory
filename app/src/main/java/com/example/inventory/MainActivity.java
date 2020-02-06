@@ -7,8 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.parse.Parse;
-import android.app.Application;
+import com.parse.ParseInstallation;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -18,6 +17,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ParseInstallation.getCurrentInstallation().saveInBackground();
+
         setContentView(R.layout.activity_main);
         btnItems = findViewById(R.id.btnItems);
         btnLocations = findViewById(R.id.btnLocations);
