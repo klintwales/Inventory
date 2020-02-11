@@ -1,11 +1,13 @@
 package com.example.inventory;
 
-import androidx.appcompat.app.AppCompatActivity;
+import
+        androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -19,6 +21,7 @@ import java.util.List;
 
 public class Items extends AppCompatActivity {
 
+    private static final String TAG = "tag";
     private String allDescriptions;
     private String allLocations;
     private String allQuantities;
@@ -38,8 +41,9 @@ public class Items extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_items);
+        rvItems = findViewById(R.id.rvItems);
 
-        edtItemLocation = findViewById(R.id.edtItemLocation);
+
 
 
 
@@ -84,11 +88,12 @@ public class Items extends AppCompatActivity {
                             allLocations = items.get("location") + "";
                             allQuantities = items.get("quantity") + "";
 
-                            for (int i = 0; i < objects.size(); i++){
                             descriptions.add(allDescriptions);
                             locations.add(allLocations);
                             quantity.add(allQuantities);
-                        }
+
+                        initRecyclerView();
+
                     }
                 }
             }
@@ -97,11 +102,14 @@ public class Items extends AppCompatActivity {
 
         });
 
-        initRecyclerView();
+
+
 
     }
 
     private void initRecyclerView(){
+        Log.d(TAG, "initRecyclerView started");
+
         RecyclerView recyclerView = findViewById(R.id.rvItems);
         RecyclerAdapter adapter = new RecyclerAdapter(descriptions, locations, quantity, this  );
         recyclerView.setAdapter(adapter);

@@ -1,6 +1,7 @@
 package com.example.inventory;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +15,14 @@ import java.util.ArrayList;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>{
 
-    private ArrayList<String> mDescription = new ArrayList<>();
-    private ArrayList<String> mLocation = new ArrayList<>();
-    private ArrayList<String> mQuantity = new ArrayList<>();
+    private static final String TAG = "tag";
+    private ArrayList<String> mDescription;
+    private ArrayList<String> mLocation;
+    private ArrayList<String> mQuantity;
     private Context mContext;
 
     public RecyclerAdapter(ArrayList<String> mDescription, ArrayList<String> mLocation, ArrayList<String> mQuantity, Context mContext) {
+        Log.d(TAG, "RecycleAdapter called");
         this.mDescription = mDescription;
         this.mLocation = mLocation;
         this.mQuantity = mQuantity;
@@ -29,14 +32,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
+        Log.d(TAG, "onCreateViewHolder called");
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_layout, parent, false);
         ViewHolder holder = new ViewHolder(view);
-        return null;
+        return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+        Log.d(TAG, "onBindViewHolder: called");
 
         holder.description.setText(mDescription.get(position));
         holder.location.setText(mLocation.get(position));
