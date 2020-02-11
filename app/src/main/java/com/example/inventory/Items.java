@@ -2,14 +2,15 @@ package com.example.inventory;
 
 import
         androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -37,6 +38,8 @@ public class Items extends AppCompatActivity {
 
     private EditText edtItemLocation;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,38 +48,7 @@ public class Items extends AppCompatActivity {
 
 
 
-
-
-        /*allItems = "";
-
-        ParseQuery<ParseObject> queryAll = ParseQuery.getQuery("Items");
-        queryAll.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> objects, ParseException e) {
-                if (e == null){
-
-                    if(objects.size() > 0){
-
-                        for (ParseObject items : objects){
-                            allItems = allItems + items.get("description") + "\n";
-                        }
-
-                        Toast.makeText(Items.this, allItems, Toast.LENGTH_SHORT).show();
-
-                    }
-                    else{
-                        Toast.makeText(Items.this, "Failure", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else {
-                    Toast.makeText(Items.this, e.getMessage() + "", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-
-        });*/
-
-
+        // Queries db for all object descriptions, locations, and quantities then sets them in a recycler view
 
         ParseQuery<ParseObject> queryAll = ParseQuery.getQuery("Items");
         queryAll.findInBackground(new FindCallback<ParseObject>() {
@@ -116,6 +88,7 @@ public class Items extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
     }
+
 
 
 }

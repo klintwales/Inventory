@@ -1,13 +1,12 @@
 package com.example.inventory;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.ParseException;
@@ -18,14 +17,18 @@ public class AddItem extends AppCompatActivity {
     EditText edtAddItemDescription, edtAddItemLocation, edtAddItemQuantity;
     Button btnAddItem;
 
+    private Button btnAddItemClear;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
-        edtAddItemDescription = findViewById(R.id.edtAddItemDesciption);
+        edtAddItemDescription = findViewById(R.id.edtAddItemDescription);
         edtAddItemLocation = findViewById(R.id.edtAddItemLocation);
         edtAddItemQuantity = findViewById(R.id.edtAddItemQuantity);
         btnAddItem = findViewById(R.id.btnAddItem);
+
+        btnAddItemClear = findViewById(R.id.btnAddItemClear);
 
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,6 +47,16 @@ public class AddItem extends AppCompatActivity {
                             Toast.makeText(AddItem.this, e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }});
+            }
+        });
+
+        btnAddItemClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edtAddItemDescription.setText("");
+                edtAddItemLocation.setText("");
+                edtAddItemQuantity.setText("");
+
             }
         });
 
