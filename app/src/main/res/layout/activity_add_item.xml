@@ -44,7 +44,9 @@
         android:ems="10"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtAddItemLocation" />
+        app:layout_constraintTop_toBottomOf="@+id/edtAddItemLocation"
+        android:maxLength="6"
+        />
 
     <TextView
         android:id="@+id/textViewAddItemQuantity"
