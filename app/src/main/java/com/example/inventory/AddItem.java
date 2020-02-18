@@ -14,7 +14,7 @@ import com.parse.ParseObject;
 import com.parse.SaveCallback;
 
 public class AddItem extends AppCompatActivity {
-    EditText edtAddItemDescription, edtAddItemLocation, edtAddItemQuantity;
+    EditText edtAddItemDescription, edtAddItemLocation, edtAddItemQuantity, edtAddItemNotes;
     Button btnAddItem;
 
     private Button btnAddItemClear;
@@ -26,6 +26,7 @@ public class AddItem extends AppCompatActivity {
         edtAddItemDescription = findViewById(R.id.edtAddItemDescription);
         edtAddItemLocation = findViewById(R.id.edtAddItemLocation);
         edtAddItemQuantity = findViewById(R.id.edtAddItemQuantity);
+        edtAddItemNotes = findViewById(R.id.edtAddItemNotes);
         btnAddItem = findViewById(R.id.btnAddItem);
 
         btnAddItemClear = findViewById(R.id.btnAddItemClear);
@@ -37,6 +38,7 @@ public class AddItem extends AppCompatActivity {
                 items.put("description", edtAddItemDescription.getText().toString());
                 items.put("location", edtAddItemLocation.getText().toString());
                 items.put("quantity", edtAddItemQuantity.getText().toString());
+                items.put("notes", edtAddItemNotes.getText().toString());
                 items.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
@@ -56,6 +58,7 @@ public class AddItem extends AppCompatActivity {
                 edtAddItemDescription.setText("");
                 edtAddItemLocation.setText("");
                 edtAddItemQuantity.setText("");
+                edtAddItemNotes.setText("");
 
             }
         });

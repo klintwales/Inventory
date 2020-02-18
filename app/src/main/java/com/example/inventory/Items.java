@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -20,7 +21,7 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Items extends AppCompatActivity {
+public class Items extends AppCompatActivity implements RecyclerAdapter.OnItemListener {
 
     private static final String TAG = "tag";
     private String allDescriptions;
@@ -83,12 +84,15 @@ public class Items extends AppCompatActivity {
         Log.d(TAG, "initRecyclerView started");
 
         RecyclerView recyclerView = findViewById(R.id.rvItems);
-        RecyclerAdapter adapter = new RecyclerAdapter(descriptions, locations, quantity, this  );
+        RecyclerAdapter adapter = new RecyclerAdapter(descriptions, locations, quantity, this, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
     }
 
 
-
+    @Override
+    public void onItemClick(int position) {
+        Toast.makeText(getApplicationContext(), "was clicked " + descriptions.get(position), Toast.LENGTH_SHORT).show();
+    }
 }
