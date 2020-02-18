@@ -5,13 +5,10 @@ import
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -38,6 +35,11 @@ public class Items extends AppCompatActivity implements RecyclerAdapter.OnItemLi
     private ArrayList<String> quantity = new ArrayList<>();
 
     private EditText edtItemLocation;
+
+    public static final String DESCRIPTION = "com.example.inventory.DESCRIPTION";
+    public static final String LOCATION = "com.example.inventory.LOCATION";
+    public static final String QUANTITY = "com.example.inventory.QUANTITY";
+    public static final String NOTES = "com.example.inventory.NOTES";
 
 
 
@@ -93,6 +95,17 @@ public class Items extends AppCompatActivity implements RecyclerAdapter.OnItemLi
 
     @Override
     public void onItemClick(int position) {
-        Toast.makeText(getApplicationContext(), "was clicked " + descriptions.get(position), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, ItemDetails.class);
+        descriptions.get(position);
+        locations.get(position);
+        quantity.get(position);
+        //String notes = notes.get(position);
+
+        //Toast.makeText(this, descriptions.get(position), Toast.LENGTH_SHORT).show();
+        intent.putExtra(DESCRIPTION, descriptions.get(position));
+        intent.putExtra(LOCATION, locations.get(position));
+        intent.putExtra(QUANTITY, quantity.get(position));
+        //intent.putExtra(NOTES, notes);
+        startActivity(intent);
     }
 }
