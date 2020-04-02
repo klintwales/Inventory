@@ -9,8 +9,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -21,6 +23,7 @@ import java.util.List;
 public class Items extends AppCompatActivity implements RecyclerAdapter.OnItemListener {
 
     private static final String TAG = "tag";
+    private String allObjectIds;
     private String allDescriptions;
     private String allLocations;
     private String allQuantities;
@@ -30,12 +33,15 @@ public class Items extends AppCompatActivity implements RecyclerAdapter.OnItemLi
 
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerAdapter adapter;
+    private ArrayList<String> objectIds = new ArrayList<>();
     private ArrayList<String> descriptions = new ArrayList<>();
     private ArrayList<String> locations = new ArrayList<>();
     private ArrayList<String> quantity = new ArrayList<>();
 
     private EditText edtItemLocation;
 
+
+    public static final String OBJECTIDS = "com.example.inventory.OBJECTIDS";
     public static final String DESCRIPTION = "com.example.inventory.DESCRIPTION";
     public static final String LOCATION = "com.example.inventory.LOCATION";
     public static final String QUANTITY = "com.example.inventory.QUANTITY";
@@ -51,6 +57,21 @@ public class Items extends AppCompatActivity implements RecyclerAdapter.OnItemLi
 
 
 
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Items");
+        query.getInBackground("zhBx52SZyN", new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
+                if (e == null) {
+                    allObjectIds = query.toString();
+                } else {
+                    // something went wrong
+                }
+            }
+        });
+
+
+
+
         // Queries db for all object descriptions, locations, and quantities then sets them in a recycler view
 
         ParseQuery<ParseObject> queryAll = ParseQuery.getQuery("Items");
@@ -59,15 +80,19 @@ public class Items extends AppCompatActivity implements RecyclerAdapter.OnItemLi
             public void done(List<ParseObject> objects, ParseException e) {
                 if (e == null){
                     for (ParseObject items : objects){
+
+                            allObjectIds = items.getObjectId();
                             allDescriptions = items.get("description") + "";
                             allLocations = items.get("location") + "";
                             allQuantities = items.get("quantity") + "";
 
+                            objectIds.add(allObjectIds);
                             descriptions.add(allDescriptions);
                             locations.add(allLocations);
                             quantity.add(allQuantities);
 
                         initRecyclerView();
+
 
                     }
                 }
@@ -75,11 +100,9 @@ public class Items extends AppCompatActivity implements RecyclerAdapter.OnItemLi
 
 
 
+
+
         });
-
-
-
-
     }
 
     private void initRecyclerView(){
@@ -96,16 +119,23 @@ public class Items extends AppCompatActivity implements RecyclerAdapter.OnItemLi
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(this, ItemDetails.class);
+        objectIds.get(position);
         descriptions.get(position);
         locations.get(position);
         quantity.get(position);
+        //test toast to display ObjectIds
+        //Toast.makeText(this, " " + objectIds, Toast.LENGTH_LONG).show();
+
         //String notes = notes.get(position);
 
         //Toast.makeText(this, descriptions.get(position), Toast.LENGTH_SHORT).show();
+        intent.putExtra(OBJECTIDS, objectIds.get(position));
         intent.putExtra(DESCRIPTION, descriptions.get(position));
         intent.putExtra(LOCATION, locations.get(position));
         intent.putExtra(QUANTITY, quantity.get(position));
         //intent.putExtra(NOTES, notes);
         startActivity(intent);
+
+
     }
 }
