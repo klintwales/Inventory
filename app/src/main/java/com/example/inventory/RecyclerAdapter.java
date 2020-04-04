@@ -25,13 +25,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
 
     public RecyclerAdapter(ArrayList<String> mDescription, ArrayList<String> mLocation, ArrayList<String> mQuantity, Context mContext, OnItemListener onItemListener) {
-        Log.d(TAG, "RecycleAdapter called");
+        Log.d(TAG, "RecyclerAdapter called");
         this.mDescription = mDescription;
         this.mLocation = mLocation;
         this.mQuantity = mQuantity;
         this.mContext = mContext;
 
         this.mOnItemListener = onItemListener;
+
+
     }
 
     @NonNull
@@ -67,6 +69,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         RelativeLayout parentLayout;
         OnItemListener onItemListener;
 
+
         public ViewHolder(@NonNull View itemView, OnItemListener onItemListener) {
             super(itemView);
             description = itemView.findViewById(R.id.tvItemDescription);
@@ -82,6 +85,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         public void onClick(View view) {
             onItemListener.onItemClick(getAdapterPosition());
         }
+
     }
 
     public interface OnItemListener{

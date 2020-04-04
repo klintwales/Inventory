@@ -69,8 +69,11 @@ public class ItemDetails extends AppCompatActivity{
                     });
                     Toast.makeText(ItemDetails.this, "intent attempt ", Toast.LENGTH_SHORT).show();
 
+                    //Intent intent = new Intent(ItemDetails.this, Items.class);
 
-                    onBackPressed();
+                    //startActivity(intent);
+
+                    //onBackPressed();
                 }
             });
     }

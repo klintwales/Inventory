@@ -52,24 +52,20 @@ public class Items extends AppCompatActivity implements RecyclerAdapter.OnItemLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_items);
         rvItems = findViewById(R.id.rvItems);
+        onResume();
 
 
-
-
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Items");
-        query.getInBackground("zhBx52SZyN", new GetCallback<ParseObject>() {
-            public void done(ParseObject object, ParseException e) {
-                if (e == null) {
-                    allObjectIds = query.toString();
-                } else {
-                    // something went wrong
-                }
-            }
-        });
-
-
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        setContentView(R.layout.activity_items);
+        Toast.makeText(this, " onResume ", Toast.LENGTH_LONG).show();
+        objectIds.clear();
+        descriptions.clear();
+        locations.clear();
+        quantity.clear();
 
 
         // Queries db for all object descriptions, locations, and quantities then sets them in a recycler view
@@ -81,15 +77,17 @@ public class Items extends AppCompatActivity implements RecyclerAdapter.OnItemLi
                 if (e == null){
                     for (ParseObject items : objects){
 
-                            allObjectIds = items.getObjectId();
-                            allDescriptions = items.get("description") + "";
-                            allLocations = items.get("location") + "";
-                            allQuantities = items.get("quantity") + "";
+                        allObjectIds = items.getObjectId();
+                        allDescriptions = items.get("description") + "";
+                        allLocations = items.get("location") + "";
+                        allQuantities = items.get("quantity") + "";
 
-                            objectIds.add(allObjectIds);
-                            descriptions.add(allDescriptions);
-                            locations.add(allLocations);
-                            quantity.add(allQuantities);
+                        objectIds.add(allObjectIds);
+                        descriptions.add(allDescriptions);
+                        locations.add(allLocations);
+                        quantity.add(allQuantities);
+
+
 
                         initRecyclerView();
 
@@ -107,6 +105,7 @@ public class Items extends AppCompatActivity implements RecyclerAdapter.OnItemLi
 
     private void initRecyclerView(){
         Log.d(TAG, "initRecyclerView started");
+
 
         RecyclerView recyclerView = findViewById(R.id.rvItems);
         RecyclerAdapter adapter = new RecyclerAdapter(descriptions, locations, quantity, this, this);
@@ -135,7 +134,8 @@ public class Items extends AppCompatActivity implements RecyclerAdapter.OnItemLi
         intent.putExtra(QUANTITY, quantity.get(position));
         //intent.putExtra(NOTES, notes);
         startActivity(intent);
-
-
     }
+
 }
+
+
