@@ -51,7 +51,7 @@ public class ItemDetails extends AppCompatActivity{
                     ParseQuery<ParseObject> query = ParseQuery.getQuery("Items");
                     Toast.makeText(ItemDetails.this, " start of btn save", Toast.LENGTH_SHORT).show();
                     // Retrieve the object by id
-                    query.getInBackground(objectIds.toString(), new GetCallback<ParseObject>() {
+                    query.getInBackground(objectIds, new GetCallback<ParseObject>() {
                         public void done(ParseObject items, ParseException e) {
                             if (e == null) {
                                 items.put("description", edtItemDetailsDescription.getText().toString());
