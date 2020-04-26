@@ -31,19 +31,19 @@ public class ItemDetails extends AppCompatActivity{
 
             //get items from intent
             Intent intent = getIntent();
-            String objectIds = intent.getStringExtra(Items.OBJECTIDS);
-            String descriptions = intent.getStringExtra(Items.DESCRIPTION);
-            String location = intent.getStringExtra(Items.LOCATION);
-            String quantity = intent.getStringExtra(Items.QUANTITY);
+            String objectIds = intent.getStringExtra("objectId");
+            String descriptions = intent.getStringExtra("description");
+            String location = intent.getStringExtra("location");
+            String quantity = intent.getStringExtra("quantity");
+        if(!intent.getStringExtra("notes").equals("null")) {
+            String notes = intent.getStringExtra("notes");
+            edtItemDetailsNotes.setText(notes);
+        }
 
             //set ui components to what item was clicked
-            Toast.makeText(this, quantity, Toast.LENGTH_SHORT).show();
-            edtItemDetailsDescription.setText(descriptions);
-            edtItemDetailsLocation.setText(location);
-            edtItemDetailsQuantity.setText(quantity);
-
-            //toast to make sure objectId is correct
-            Toast.makeText(this, " " + objectIds, Toast.LENGTH_LONG).show();
+                edtItemDetailsDescription.setText(descriptions);
+                edtItemDetailsLocation.setText(location);
+                edtItemDetailsQuantity.setText(quantity);
 
             btnItemDetailsSave.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -57,6 +57,7 @@ public class ItemDetails extends AppCompatActivity{
                                 items.put("description", edtItemDetailsDescription.getText().toString());
                                 items.put("location", edtItemDetailsLocation.getText().toString());
                                 items.put("quantity", edtItemDetailsQuantity.getText().toString());
+                                items.put("notes", edtItemDetailsNotes.getText().toString());
 
                                 //Toast.makeText(ItemDetails.this, "update completed " + descriptions + e, Toast.LENGTH_SHORT).show();
 

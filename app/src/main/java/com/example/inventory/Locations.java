@@ -37,8 +37,9 @@ public class Locations extends AppCompatActivity implements RecyclerAdapter.OnIt
 
                         allLocations = items.get("location") + "";
 
-                        locations.add(allLocations);
-
+                        if (! locations.contains((CharSequence) allLocations)) {
+                            locations.add(allLocations);
+                        }
 
 
 

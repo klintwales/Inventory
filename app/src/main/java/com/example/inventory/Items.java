@@ -27,6 +27,7 @@ public class Items extends AppCompatActivity implements RecyclerAdapter.OnItemLi
     private String allDescriptions;
     private String allLocations;
     private String allQuantities;
+    private String allNotes;
 
 
     private RecyclerView rvItems;
@@ -37,6 +38,7 @@ public class Items extends AppCompatActivity implements RecyclerAdapter.OnItemLi
     private ArrayList<String> descriptions = new ArrayList<>();
     private ArrayList<String> locations = new ArrayList<>();
     private ArrayList<String> quantity = new ArrayList<>();
+    private ArrayList<String> notes = new ArrayList<>();
 
     private EditText edtItemLocation;
 
@@ -53,23 +55,33 @@ public class Items extends AppCompatActivity implements RecyclerAdapter.OnItemLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         rvItems = findViewById(R.id.rvItems);
-        onResume();
+        onStart();
 
 
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        onResume();
+    }
+
     @Override
     public void onResume(){
         super.onResume();
+        Toast.makeText(this, "onResume ", Toast.LENGTH_LONG).show();
         setContentView(R.layout.activity_items);
-        Toast.makeText(this, " onResume ", Toast.LENGTH_LONG).show();
         objectIds.clear();
         descriptions.clear();
         locations.clear();
         quantity.clear();
+        notes.clear();
+
+
+
 
 
         // Queries db for all object descriptions, locations, and quantities then sets them in a recycler view
-
         ParseQuery<ParseObject> queryAll = ParseQuery.getQuery("Items");
         queryAll.findInBackground(new FindCallback<ParseObject>() {
             @Override
@@ -81,11 +93,13 @@ public class Items extends AppCompatActivity implements RecyclerAdapter.OnItemLi
                         allDescriptions = items.get("description") + "";
                         allLocations = items.get("location") + "";
                         allQuantities = items.get("quantity") + "";
+                        allNotes = items.get("notes") + "";
 
                         objectIds.add(allObjectIds);
                         descriptions.add(allDescriptions);
                         locations.add(allLocations);
                         quantity.add(allQuantities);
+                        notes.add(allNotes);
 
 
 
@@ -95,6 +109,7 @@ public class Items extends AppCompatActivity implements RecyclerAdapter.OnItemLi
                     }
                 }
             }
+
 
 
 
@@ -118,21 +133,19 @@ public class Items extends AppCompatActivity implements RecyclerAdapter.OnItemLi
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(this, ItemDetails.class);
-        objectIds.get(position);
+        /*objectIds.get(position);
         descriptions.get(position);
         locations.get(position);
         quantity.get(position);
+        notes.get(position);*/
         //test toast to display ObjectIds
-        //Toast.makeText(this, " " + objectIds, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, " " + notes, Toast.LENGTH_LONG).show();
 
-        //String notes = notes.get(position);
-
-        //Toast.makeText(this, descriptions.get(position), Toast.LENGTH_SHORT).show();
-        intent.putExtra(OBJECTIDS, objectIds.get(position));
-        intent.putExtra(DESCRIPTION, descriptions.get(position));
-        intent.putExtra(LOCATION, locations.get(position));
-        intent.putExtra(QUANTITY, quantity.get(position));
-        //intent.putExtra(NOTES, notes);
+        intent.putExtra("objectId", objectIds.get(position));
+        intent.putExtra("description", descriptions.get(position));
+        intent.putExtra("location", locations.get(position));
+        intent.putExtra("quantity", quantity.get(position));
+        intent.putExtra("notes", notes.get(position));
         startActivity(intent);
     }
 
