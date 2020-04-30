@@ -106,7 +106,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 quantity = itemView.findViewById(R.id.tvItemQuantity);
             }
             if(version == 2){
-                location = itemView.findViewById(R.id.tvLocation);
+                location = itemView.findViewById(R.id.tvAddItemLocation);
             }
             this.onItemListener = onItemListener;
 
