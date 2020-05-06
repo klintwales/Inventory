@@ -79,8 +79,36 @@ public class Items extends AppCompatActivity implements RecyclerAdapter.OnItemLi
 
 
 
+        ParseQuery<ParseObject> queryAll = ParseQuery.getQuery("Items");
+        queryAll.whereNotEqualTo("description", "");
+        List<ParseObject> objects = new ArrayList<ParseObject>();
+
+        try {
+            List<ParseObject> results = queryAll.find();
+            for (ParseObject result : results) {
+                allObjectIds = result.getObjectId();
+                allDescriptions = result.get("description") + "";
+                allLocations = result.get("location") + "";
+                allQuantities = result.get("quantity") + "";
+                allNotes = result.get("notes") + "";
+
+                objectIds.add(allObjectIds);
+                descriptions.add(allDescriptions);
+                locations.add(allLocations);
+                quantity.add(allQuantities);
+                notes.add(allNotes);
+
+                initRecyclerView();
+
+                //Toast.makeText(this,  "Object found " + result.getObjectId(), Toast.LENGTH_LONG).show();
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 
 
+/*
         // Queries db for all object descriptions, locations, and quantities then sets them in a recycler view
         ParseQuery<ParseObject> queryAll = ParseQuery.getQuery("Items");
         queryAll.findInBackground(new FindCallback<ParseObject>() {
@@ -89,43 +117,33 @@ public class Items extends AppCompatActivity implements RecyclerAdapter.OnItemLi
                 if (e == null){
                     for (ParseObject items : objects){
 
-                        allObjectIds = items.getObjectId();
-                        allDescriptions = items.get("description") + "";
-                        allLocations = items.get("location") + "";
-                        allQuantities = items.get("quantity") + "";
-                        allNotes = items.get("notes") + "";
+                            allObjectIds = items.getObjectId();
+                            allDescriptions = items.get("description") + "";
+                            allLocations = items.get("location") + "";
+                            allQuantities = items.get("quantity") + "";
+                            allNotes = items.get("notes") + "";
 
-                        objectIds.add(allObjectIds);
-                        descriptions.add(allDescriptions);
-                        locations.add(allLocations);
-                        quantity.add(allQuantities);
-                        notes.add(allNotes);
+                            objectIds.add(allObjectIds);
+                            descriptions.add(allDescriptions);
+                            locations.add(allLocations);
+                            quantity.add(allQuantities);
+                            notes.add(allNotes);
 
-
-
-                        initRecyclerView();
-
-
+                        if() {
+                            initRecyclerView();
+                        }
                     }
                 }
             }
-
-
-
-
-
-
-        });
-    }
+        });*/
 
     private void initRecyclerView(){
         Log.d(TAG, "initRecyclerView started");
-
-
         RecyclerView recyclerView = findViewById(R.id.rvItems);
         RecyclerAdapter adapter = new RecyclerAdapter(descriptions, locations, quantity, this, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
     }
 

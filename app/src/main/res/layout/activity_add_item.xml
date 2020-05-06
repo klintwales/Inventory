@@ -27,7 +27,6 @@
         android:layout_height="40dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:theme="@style/AppTheme"
         app:layout_constraintEnd_toEndOf="@+id/edtAddItemDescription"
 
         app:layout_constraintHorizontal_bias="0.0"

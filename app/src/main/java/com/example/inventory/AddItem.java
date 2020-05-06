@@ -59,8 +59,6 @@ public class AddItem extends AppCompatActivity {
 
         btnAddItemClear = findViewById(R.id.btnAddItemClear);
 
-        temp.add("test item");
-
         ParseQuery<ParseObject> queryAll = ParseQuery.getQuery("Items");
         queryAll.findInBackground(new FindCallback<ParseObject>() {
             @Override

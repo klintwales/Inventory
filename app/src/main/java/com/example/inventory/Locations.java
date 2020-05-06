@@ -27,44 +27,28 @@ public class Locations extends AppCompatActivity implements RecyclerAdapter.OnIt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_locations);
-
-        ParseQuery<ParseObject> queryAll = ParseQuery.getQuery("Items");
-        queryAll.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> objects, ParseException e) {
-                if (e == null){
-                    for (ParseObject items : objects){
-
-                        allLocations = items.get("location") + "";
-
-                        if (! locations.contains((CharSequence) allLocations)) {
-                            locations.add(allLocations);
-                        }
-
-
-
-                        initRecyclerView();
-
-
-                    }
-                }
-            }
-
-
-
-
-
-        });
-
-
+        onStart();
     }
 
-    private void initRecyclerView(){
+    @Override
+    public void onStart() {
+        super.onStart();
+        onResume();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        locations.clear();
+        query();
+    }
+
+    private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView started");
 
 
         RecyclerView recyclerView = findViewById(R.id.rvLocations);
-        RecyclerAdapter adapter2 = new RecyclerAdapter(locations, this,this);
+        RecyclerAdapter adapter2 = new RecyclerAdapter(locations, this, this);
         recyclerView.setAdapter(adapter2);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -73,5 +57,27 @@ public class Locations extends AppCompatActivity implements RecyclerAdapter.OnIt
     @Override
     public void onItemClick(int position) {
 
+    }
+
+    private void query() {
+        ParseQuery<ParseObject> queryAll = ParseQuery.getQuery("Items");
+        queryAll.whereNotEqualTo("location", "");
+        List<ParseObject> objects = new ArrayList<ParseObject>();
+
+        try {
+            List<ParseObject> results = queryAll.find();
+            for (ParseObject result : results) {
+                if (!locations.contains(result.get("location") + "")) {
+                    allLocations = result.get("location") + "";
+                    locations.add(allLocations);
+
+
+                    initRecyclerView();
+                }
+                //Toast.makeText(this,  "Object found " + result.getObjectId(), Toast.LENGTH_LONG).show();
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }
