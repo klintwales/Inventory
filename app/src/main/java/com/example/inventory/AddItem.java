@@ -59,7 +59,9 @@ public class AddItem extends AppCompatActivity {
 
         btnAddItemClear = findViewById(R.id.btnAddItemClear);
 
-        ParseQuery<ParseObject> queryAll = ParseQuery.getQuery("Items");
+        query();
+
+       /* ParseQuery<ParseObject> queryAll = ParseQuery.getQuery("Items");
         queryAll.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
@@ -83,7 +85,7 @@ public class AddItem extends AppCompatActivity {
                     }
                 }
             }
-        });
+        });*/
 
 
 
@@ -144,5 +146,27 @@ public class AddItem extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, locations);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spnItemLocation.setAdapter(adapter);
+    }
+
+    private void query() {
+        ParseQuery<ParseObject> queryAll = ParseQuery.getQuery("Items");
+        queryAll.whereNotEqualTo("location", "");
+        List<ParseObject> objects = new ArrayList<ParseObject>();
+
+        try {
+            List<ParseObject> results = queryAll.find();
+            for (ParseObject result : results) {
+                if (!locations.contains(result.get("location") + "")) {
+                    allLocations = result.get("location") + "";
+                    locations.add(allLocations);
+
+
+                    initSpinner();
+                }
+                //Toast.makeText(this,  "Object found " + result.getObjectId(), Toast.LENGTH_LONG).show();
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }
