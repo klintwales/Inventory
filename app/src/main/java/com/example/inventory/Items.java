@@ -69,7 +69,7 @@ public class Items extends AppCompatActivity implements RecyclerAdapter.OnItemLi
     @Override
     public void onResume(){
         super.onResume();
-        Toast.makeText(this, "onResume ", Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "onResume ", Toast.LENGTH_LONG).show();
         setContentView(R.layout.activity_items);
         objectIds.clear();
         descriptions.clear();
@@ -164,6 +164,7 @@ public class Items extends AppCompatActivity implements RecyclerAdapter.OnItemLi
         intent.putExtra("location", locations.get(position));
         intent.putExtra("quantity", quantity.get(position));
         intent.putExtra("notes", notes.get(position));
+        intent.putExtra("Locations", locations);
         startActivity(intent);
     }
 

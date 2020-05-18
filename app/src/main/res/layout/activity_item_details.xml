@@ -36,19 +36,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <Spinner
         android:id="@+id/edtItemDetailsLocation"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_height="40dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
-        android:ems="10"
-        android:hint="Item Location"
-        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/edtItemDetailsQuantity"
         app:layout_constraintTop_toBottomOf="@+id/edtItemDetailsDescription" />
 
     <EditText
@@ -84,5 +79,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="Location:"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/edtItemDetailsLocation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtItemDetailsDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

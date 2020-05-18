@@ -90,7 +90,6 @@ public class AddItem extends AppCompatActivity {
 
 
         Toast.makeText(AddItem.this, locations + "", Toast.LENGTH_LONG).show();
-        //SPINNER
 
 
 

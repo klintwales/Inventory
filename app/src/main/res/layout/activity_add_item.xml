@@ -25,12 +25,11 @@
         style="@style/Platform.Widget.AppCompat.Spinner"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="@+id/edtAddItemDescription"
 
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/edtAddItemQuantity"
         app:layout_constraintTop_toBottomOf="@+id/edtAddItemDescription" />
 
     <EditText
@@ -94,5 +93,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edtAddItemQuantity"
         app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="Location"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="108dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
