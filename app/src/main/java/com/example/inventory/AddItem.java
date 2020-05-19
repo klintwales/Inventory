@@ -19,6 +19,7 @@ import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class AddItem extends AppCompatActivity {
@@ -159,7 +160,7 @@ public class AddItem extends AppCompatActivity {
                     allLocations = result.get("location") + "";
                     locations.add(allLocations);
 
-
+                    Collections.sort(locations, String.CASE_INSENSITIVE_ORDER);
                     initSpinner();
                 }
                 //Toast.makeText(this,  "Object found " + result.getObjectId(), Toast.LENGTH_LONG).show();

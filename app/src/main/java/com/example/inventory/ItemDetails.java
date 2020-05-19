@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.parse.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ItemDetails extends AppCompatActivity{
@@ -80,6 +81,7 @@ public class ItemDetails extends AppCompatActivity{
         Toast.makeText(ItemDetails.this, "intent complete", Toast.LENGTH_SHORT).show();
 
         query();
+        Collections.sort(locations, String.CASE_INSENSITIVE_ORDER);
         initSpinner();
 
             btnItemDetailsSave.setOnClickListener(new View.OnClickListener() {
