@@ -32,8 +32,6 @@ public class Items extends AppCompatActivity implements RecyclerAdapter.OnItemLi
 
     private RecyclerView rvItems;
 
-    private RecyclerView.LayoutManager layoutManager;
-    private RecyclerAdapter adapter;
     private ArrayList<String> objectIds = new ArrayList<>();
     private ArrayList<String> descriptions = new ArrayList<>();
     private ArrayList<String> locations = new ArrayList<>();

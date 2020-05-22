@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -20,6 +22,8 @@ public class Locations extends AppCompatActivity implements RecyclerAdapter.OnIt
     private static final String TAG = "tag";
 
     private String allLocations;
+
+    private RecyclerView rvItemsByLocation;
 
     private ArrayList<String> locations = new ArrayList<>();
 
@@ -54,10 +58,7 @@ public class Locations extends AppCompatActivity implements RecyclerAdapter.OnIt
 
     }
 
-    @Override
-    public void onItemClick(int position) {
 
-    }
 
     private void query() {
         ParseQuery<ParseObject> queryAll = ParseQuery.getQuery("Items");
@@ -80,4 +81,14 @@ public class Locations extends AppCompatActivity implements RecyclerAdapter.OnIt
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void onItemClick(int position) {
+
+        Intent intent = new Intent(this, ItemsByLocation.class);
+        intent.putExtra("location", locations.get(position));
+        startActivity(intent);
+
+    }
+
 }

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -49,6 +50,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     }
 
+    public RecyclerAdapter(ArrayList<String> mDescription, ArrayList<String> mQuantity, Context mContext, OnItemListener onItemListener){
+        Log.d(TAG, "Items by location RecyclerAdapter called");
+        version = 3;
+        this.mDescription = mDescription;
+        this.mQuantity = mQuantity;
+        this.mContext = mContext;
+
+        this.mOnItemListener = onItemListener;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -60,6 +71,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         if(version ==2){
              view = LayoutInflater.from(parent.getContext()).inflate(R.layout.locations_layout, parent, false);
         }
+        if(version ==3){
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_by_location_layout, parent, false);
+        }
 
         ViewHolder holder = new ViewHolder(view, mOnItemListener, version);
         return holder;
@@ -69,15 +83,24 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         Log.d(TAG, "onBindViewHolder: called");
-        Log.d(TAG, mLocation + "");
+        Log.d(TAG, "Version: " + version);
 
         if(version == 1){
+            Log.d(TAG, "version 1");
             holder.description.setText(mDescription.get(position));
             holder.quantity.setText(mQuantity.get(position));
             holder.location.setText(mLocation.get(position));
         }
         if(version == 2){
+            Log.d(TAG, "version 2");
             holder.location.setText(mLocation.get(position));
+        }
+        if(version == 3){
+            Log.d(TAG, "version 3");
+            Log.d(TAG, "Description: " +  mDescription.get(position));
+            holder.description.setText(mDescription.get(position));
+            Log.d(TAG, "Quantity: " + mQuantity.get(position) + "");
+            holder.quantity.setText(mQuantity.get(position));
         }
 
 
@@ -85,8 +108,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-
-        return mLocation.size();
+        Log.d(TAG, "getItemCount version: " + version);
+        if(version == 1 || version == 2) {
+            Log.d(TAG, "getItemCount mLocation:  " + mLocation.size());
+            return mLocation.size();
+        }else{
+            Log.d(TAG, "getItemCount mDescription:  " + mDescription.size());
+            return mDescription.size();
+        }
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -108,6 +137,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             if(version == 2){
                 location = itemView.findViewById(R.id.tvAddItemLocation);
             }
+            if(version == 3){
+                description = itemView.findViewById(R.id.tvItemByLocationDescription);
+                quantity = itemView.findViewById(R.id.tvItemByLocationQuantity);
+            }
+
+
             this.onItemListener = onItemListener;
 
             itemView.setOnClickListener(this);

@@ -44,6 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="QTY"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toTopOf="parent" />
 

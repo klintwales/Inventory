@@ -33,6 +33,9 @@
         <activity
             android:name=".AddLocation"
             android:label="Add Location" />
+        <activity
+            android:name=".ItemsByLocation"
+            android:label="Items in this Location" />
     </application>
 
 </manifest>
