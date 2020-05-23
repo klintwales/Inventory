@@ -78,7 +78,6 @@ public class ItemDetails extends AppCompatActivity{
             //set ui components to what item was clicked
         edtItemDetailsDescription.setText(descriptions);
         edtItemDetailsQuantity.setText(quantity);
-        Toast.makeText(ItemDetails.this, "intent complete", Toast.LENGTH_SHORT).show();
 
         query();
         Collections.sort(locations, String.CASE_INSENSITIVE_ORDER);
@@ -107,7 +106,6 @@ public class ItemDetails extends AppCompatActivity{
                             }
                         }
                     });
-                    Toast.makeText(ItemDetails.this, "intent attempt ", Toast.LENGTH_SHORT).show();
 
 
                     //Intent intent = new Intent(ItemDetails.this, Items.class);
@@ -120,7 +118,6 @@ public class ItemDetails extends AppCompatActivity{
     }
 
     private void query() {
-        Toast.makeText(ItemDetails.this, "query start ", Toast.LENGTH_SHORT).show();
         ParseQuery<ParseObject> queryAll = ParseQuery.getQuery("Items");
         queryAll.whereNotEqualTo("location", "");
         List<ParseObject> objects = new ArrayList<ParseObject>();
@@ -147,7 +144,6 @@ public class ItemDetails extends AppCompatActivity{
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, locations);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spnItemDetailLocation.setAdapter(adapter);
-        Toast.makeText(ItemDetails.this, "spinner: " + locations.indexOf(location) + "", Toast.LENGTH_SHORT).show();
         spnItemDetailLocation.setSelection(locations.indexOf(location));
 
     }

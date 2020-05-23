@@ -38,11 +38,25 @@ public class ItemsByLocation extends AppCompatActivity implements RecyclerAdapte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_items_by_location);
+
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        onResume();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        locations.clear();
         Intent intent = getIntent();
         location = intent.getStringExtra("location");
         query();
-
     }
+
 
     private void initRecyclerView() {
         Log.d(TAG, "initRecyclerView started");
@@ -58,19 +72,28 @@ public class ItemsByLocation extends AppCompatActivity implements RecyclerAdapte
         ParseQuery<ParseObject> queryAll = ParseQuery.getQuery("Items");
         queryAll.whereEqualTo("location", location + "");
         List<ParseObject> objects = new ArrayList<ParseObject>();
+        objectIds.clear();
+        descriptions.clear();
+        locations.clear();
+        quantity.clear();
+        notes.clear();
 
         try {
             List<ParseObject> results = queryAll.find();
             for (ParseObject result : results) {
+
                     allObjectIds = result.getObjectId();
                     allDescriptions = result.get("description") + "";
+                    allLocations = result.get("location") + "";
                     allQuantities = result.get("quantity") + "";
+                    allNotes = result.get("notes") + "";
 
                     objectIds.add(allObjectIds);
                     descriptions.add(allDescriptions);
+                    locations.add(allLocations);
                     quantity.add(allQuantities);
+                    notes.add(allNotes);
 
-                    Toast.makeText(this,  "Object found " + descriptions, Toast.LENGTH_LONG).show();
                     initRecyclerView();
                     //Toast.makeText(this,  "Object found " + result.getObjectId(), Toast.LENGTH_LONG).show();
             }
@@ -81,7 +104,14 @@ public class ItemsByLocation extends AppCompatActivity implements RecyclerAdapte
 
     @Override
     public void onItemClick(int position) {
-
+        Intent intent = new Intent(this, ItemDetails.class);
+        intent.putExtra("objectId", objectIds.get(position));
+        intent.putExtra("description", descriptions.get(position));
+        intent.putExtra("location", locations.get(position));
+        intent.putExtra("quantity", quantity.get(position));
+        intent.putExtra("notes", notes.get(position));
+        intent.putExtra("Locations", locations);
+        startActivity(intent);
 
     }
 }
